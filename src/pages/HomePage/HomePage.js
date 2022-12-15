@@ -30,8 +30,8 @@ const HomePage = () => {
           <h1>Todos Pokémons</h1>
         </Title>
         <ContainerCard>
-          {pokelist.map((pokemon, index) => {
-            return <Card key={index} pokemonUrl={pokemon.url} name={pokemon.name} />;
+          {pokelist.map((pokemon) => {
+            return <Card key={pokemon.name} pokemonUrl={pokemon.url} pokemon={pokemon} />;
           })}
         </ContainerCard>
       </Container>

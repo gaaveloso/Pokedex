@@ -10,15 +10,6 @@ export const Container = styled.div`
   margin-bottom: 1.25rem;
   margin-top: 5vh;
 
-  img {
-    width: 193px;
-    height: 193px;
-    position: relative;
-    right: 236px;
-    left: 11px;
-    bottom: 70px;
-  }
-
   a {
     cursor: pointer;
     text-decoration: underline;
@@ -39,6 +30,15 @@ export const Type = styled.div`
   gap: 0.62rem;
 `;
 
+export const ImgPokemon = styled.img`
+  width: 193px;
+  height: 193px;
+  position: relative;
+  right: 236px;
+  left: 11px;
+  bottom: 70px;
+`;
+
 export const Link = styled.div`
   display: flex;
   justify-content: space-between;
@@ -56,4 +56,9 @@ export const Link = styled.div`
     border: none;
     cursor: pointer;
   }
+`;
+
+export const CardType = styled.img`
+  width: 99px;
+  height: 31px;
 `;
