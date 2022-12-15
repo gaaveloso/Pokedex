@@ -1,26 +1,21 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Card from "../../components/Card/Card";
 import Header from "../../components/Header/Header";
 import { BASE_URL } from "../../constants/url";
+import { GlobalContext } from "../../contexts/GlobalContext";
 import { Container, ContainerCard, Title } from "./styled";
 
 const HomePage = () => {
-  const [pokelist, setPokelist] = useState([]);
 
-  const fetchPokelist = async () => {
-    try {
-      const response = await axios.get(BASE_URL);
-      setPokelist(response.data.results);
-    } catch (error) {
-      console.log("Erro ao buscar lista de pokemon");
-      console.log(error.response);
-    }
-  };
+  const context = useContext(GlobalContext)
 
-  useEffect(() => {
-    fetchPokelist();
-  }, []);
+  const {pokelist, setPokelist, fetchPokelist} = context
+
+  const filterPokemon = (pokeName) => {
+    const pokeFilter = pokelist.filter((pokemon) => pokemon.name !== pokeName)
+    setPokelist(pokeFilter)
+  }
 
   return (
     <>
@@ -31,7 +26,7 @@ const HomePage = () => {
         </Title>
         <ContainerCard>
           {pokelist.map((pokemon) => {
-            return <Card key={pokemon.name} pokemonUrl={pokemon.url} pokemon={pokemon} />;
+            return <Card key={pokemon.name} pokemonUrl={pokemon.url} pokemon={pokemon} filterPokemon={filterPokemon}/>;
           })}
         </ContainerCard>
       </Container>

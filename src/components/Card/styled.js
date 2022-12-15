@@ -43,19 +43,33 @@ export const Link = styled.div`
   display: flex;
   justify-content: space-between;
   width: 20vw;
+`;
 
-  button {
-    min-width: 7.6vw;
-    height: 3.9vh;
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 4px 10px;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    border: none;
-    cursor: pointer;
-  }
+export const ButtonPokedex = styled.button`
+  min-width: 7.6vw;
+  height: 3.9vh;
+  background-color: #FF6262;
+  color: white;
+  border-radius: 8px;
+  padding: 4px 10px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  border: none;
+  cursor: pointer;
+`;
+
+export const ButtonPokemon = styled.button`
+  min-width: 7.6vw;
+  height: 3.9vh;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 4px 10px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  border: none;
+  cursor: pointer;
 `;
 
 export const CardType = styled.img`

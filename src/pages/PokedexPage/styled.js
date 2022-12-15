@@ -1,11 +1,21 @@
 import styled from "styled-components";
 
+export const ContainerCard = styled.div`
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+`
+
 export const Container = styled.div`
-    min-height: 80vh;
+    height: 100%;
     background-color: #5E5E5E;
-    h1 {
-        color: #fff;
-        font-size: 3rem;
-        padding: 40px;
-    }
+`
+
+export const Title = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 10vh;
 `
