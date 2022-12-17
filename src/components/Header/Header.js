@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { goToHomePage, goToPokedexPage } from "../../routes/coordinator";
 import { ButtonDelet, ButtonPokedex, ButtonPokemon, Container } from "./styled";
 import logo from "../../img/pokemon-logo.png";
@@ -9,6 +9,7 @@ const Header = () => {
 
   // hook pra navegar as paginas
   const navigate = useNavigate();
+  const params = useParams()
 
   const renderHeader = () => {
     switch (location.pathname) {
@@ -34,7 +35,7 @@ const Header = () => {
             <img src={logo} />
           </Container>
         );
-      case "/detail":
+      case `/detail/${params.pokemonName}`:
         return (
           <Container>
             <ButtonPokemon>

@@ -1,10 +1,15 @@
 import styled from "styled-components";
+import pokebola from "../../img/pokebola-background.png";
 
 export const Container = styled.div`
+
+  background-image: url(${pokebola});
+  background-repeat: no-repeat;
+  background-position: right;
   min-width: 22vw;
   min-height: 19vh;
   border-radius: 12px;
-  background-color: #729f92;
+  background-color: ${(props) => props.color};
   color: white;
   padding-left: 1.43rem;
   margin-bottom: 1.25rem;
@@ -48,7 +53,7 @@ export const Link = styled.div`
 export const ButtonPokedex = styled.button`
   min-width: 7.6vw;
   height: 3.9vh;
-  background-color: #FF6262;
+  background-color: #ff6262;
   color: white;
   border-radius: 8px;
   padding: 4px 10px;

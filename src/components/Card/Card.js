@@ -1,11 +1,21 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
+import { getPokemonColors } from "../../constants/color";
 import { getPokemonType } from "../../constants/types";
 import { BASE_URL } from "../../constants/url";
 import { GlobalContext } from "../../contexts/GlobalContext";
 import { goToDetailsPage } from "../../routes/coordinator";
-import { ButtonPokedex, ButtonPokemon, CardType, Container, ImgPokemon, Link, Pokemon, Type } from "./styled";
+import {
+  ButtonPokedex,
+  ButtonPokemon,
+  CardType,
+  Container,
+  ImgPokemon,
+  Link,
+  Pokemon,
+  Type,
+} from "./styled";
 
 const Card = (props) => {
   const navigate = useNavigate();
@@ -26,6 +36,7 @@ const Card = (props) => {
     }
   };
 
+
   const addToPokedex = (pokemonAdd) => {
     const filterPokedex = pokedex.find(
       (pokemonInPokedex) => pokemonInPokedex.name === pokemonAdd.name
@@ -34,33 +45,33 @@ const Card = (props) => {
       const newPokedex = [...pokedex, pokemonAdd];
       setPokedex(newPokedex);
     }
-    props.filterPokemon(pokemonAdd.name)
+    props.filterPokemon(pokemonAdd.name);
   };
 
   const removeToPokedex = (pokemonRemove) => {
-
     const newPokedex = pokedex.filter(
       (pokemonInPokedex) => pokemonInPokedex.name !== pokemonRemove.name
-    )
-    
+    );
+
     const findPokedex = pokedex.find((pokefind) => {
-      return pokefind.name === pokemonRemove.name
-    })
+      return pokefind.name === pokemonRemove.name;
+    });
 
-    console.log(findPokedex)
-    setPokedex(newPokedex)
-    const newPokelist = [...pokelist]
-    newPokelist.push(findPokedex)
-    setPokelist(newPokelist)
-
-  }
+    console.log(findPokedex);
+    setPokedex(newPokedex);
+    const newPokelist = [...pokelist];
+    newPokelist.push(findPokedex);
+    setPokelist(newPokelist);
+  };
 
   useEffect(() => {
     fetchPokeDetails();
   }, []);
 
   return (
-    <Container>
+    <Container
+      color={getPokemonColors(pokemon.types && pokemon.types[0].type.name)}
+    >
       <Pokemon>
         <div>
           <p>#{pokemon.id}</p>
@@ -77,13 +88,17 @@ const Card = (props) => {
         />
       </Pokemon>
       <Link>
-        <a onClick={() => goToDetailsPage(navigate)}>
+        <a onClick={() => goToDetailsPage(navigate, pokemon.name)}>
           <p>Detalhes</p>
         </a>
         {location.pathname === "/pokedex" ? (
-          <ButtonPokedex onClick={() => removeToPokedex(pokemon)}>Excluir</ButtonPokedex>
+          <ButtonPokedex onClick={() => removeToPokedex(pokemon)}>
+            Excluir
+          </ButtonPokedex>
         ) : (
-          <ButtonPokemon onClick={() => addToPokedex(pokemon)}>Capturar!</ButtonPokemon>
+          <ButtonPokemon onClick={() => addToPokedex(pokemon)}>
+            Capturar!
+          </ButtonPokemon>
         )}
       </Link>
     </Container>

@@ -4,6 +4,7 @@ import { GlobalContext } from "./contexts/GlobalContext";
 import GlobalStyle from "./GlobalStyle";
 import axios from "axios";
 import { BASE_URL } from "./constants/url";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const App = () => {
   const [pokedex, setPokedex] = useState([]);
