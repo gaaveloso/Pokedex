@@ -10,9 +10,8 @@ const App = () => {
   const [pokedex, setPokedex] = useState([]);
   const [pokemon, setPokemon] = useState({});
 
-  
   const [pokelist, setPokelist] = useState([]);
-  
+
   const fetchPokelist = async () => {
     try {
       const response = await axios.get(BASE_URL);
@@ -22,11 +21,11 @@ const App = () => {
       console.log(error.response);
     }
   };
-  
+
   useEffect(() => {
     fetchPokelist();
   }, []);
-  
+
   const context = {
     fetchPokelist,
     pokelist,
@@ -36,14 +35,14 @@ const App = () => {
     pokemon,
     setPokemon,
   };
-  
+
   return (
-    <>
+    <ChakraProvider>
       <GlobalContext.Provider value={context}>
         <Router />
         <GlobalStyle />
       </GlobalContext.Provider>
-    </>
+    </ChakraProvider>
   );
 };
 

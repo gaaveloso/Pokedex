@@ -14,7 +14,6 @@ export const Container = styled.div`
   padding-left: 1.43rem;
   margin-bottom: 1.25rem;
   margin-top: 5vh;
-
   a {
     cursor: pointer;
     text-decoration: underline;
@@ -67,6 +66,7 @@ export const ButtonPokedex = styled.button`
 export const ButtonPokemon = styled.button`
   min-width: 7.6vw;
   height: 3.9vh;
+  color: black;
   background-color: #fff;
   border-radius: 8px;
   padding: 4px 10px;

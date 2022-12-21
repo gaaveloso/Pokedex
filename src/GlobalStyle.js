@@ -6,5 +6,7 @@ export default createGlobalStyle`
         padding: 0px;
         box-sizing: border-box;
         font-family: 'Inter', sans-serif;
+        text-transform: capitalize;
+
     }
 `;

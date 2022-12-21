@@ -36,7 +36,6 @@ const Card = (props) => {
     }
   };
 
-
   const addToPokedex = (pokemonAdd) => {
     const filterPokedex = pokedex.find(
       (pokemonInPokedex) => pokemonInPokedex.name === pokemonAdd.name
@@ -46,6 +45,7 @@ const Card = (props) => {
       setPokedex(newPokedex);
     }
     props.filterPokemon(pokemonAdd.name);
+
   };
 
   const removeToPokedex = (pokemonRemove) => {
@@ -78,7 +78,9 @@ const Card = (props) => {
           <h1>{pokemon.name}</h1>
           <Type>
             {pokemon.types?.map((type, index) => {
-              return <CardType src={getPokemonType(type.type.name)} />;
+              return (
+                <CardType src={getPokemonType(type.type.name)} key={index} />
+              );
             })}
           </Type>
         </div>
