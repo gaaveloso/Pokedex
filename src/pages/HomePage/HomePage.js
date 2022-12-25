@@ -1,23 +1,19 @@
-import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Card from "../../components/Card/Card";
 import Header from "../../components/Header/Header";
-import { getPokemonColors } from "../../constants/color";
-import { BASE_URL } from "../../constants/url";
 import { GlobalContext } from "../../contexts/GlobalContext";
 import { Container, ContainerCard, Title } from "./styled";
 
 const HomePage = () => {
+  const context = useContext(GlobalContext);
 
-  const context = useContext(GlobalContext)
-
-  const {pokelist, setPokelist} = context
+  const { pokelist, setPokelist, pokemon } = context;
 
   const filterPokemon = (pokeName) => {
-    const pokeFilter = pokelist.filter((pokemon) => pokemon.name !== pokeName)
-    setPokelist(pokeFilter)
-  }
-
+    const pokeFilter = pokelist.filter((pokemon) => pokemon.name !== pokeName);
+    setPokelist(pokeFilter);
+  };
+  
   return (
     <>
       <Header />
@@ -27,7 +23,14 @@ const HomePage = () => {
         </Title>
         <ContainerCard>
           {pokelist.map((pokemon) => {
-            return <Card key={pokemon.name} pokemonUrl={pokemon.url} pokemon={pokemon} filterPokemon={filterPokemon} />;
+            return (
+              <Card
+                key={pokemon.name}
+                pokemonUrl={pokemon.url}
+                pokemon={pokemon}
+                filterPokemon={filterPokemon}
+              />
+            );
           })}
         </ContainerCard>
       </Container>

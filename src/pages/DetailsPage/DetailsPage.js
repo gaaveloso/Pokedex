@@ -40,7 +40,6 @@ const DetailsPage = () => {
     fetchPokeDetails();
   }, []);
 
-  console.log(pokemon.stats);
   return (
     <>
       <Header />
@@ -87,10 +86,11 @@ const DetailsPage = () => {
               </DivType>
               <DivMoves>
                 <h2>Moves: </h2>
-                <h3>Razor Wind</h3>
-                <h3>Razor Wind</h3>
-                <h3>Razor Wind</h3>
-                <h3>Razor Wind</h3>
+                {pokemon.moves?.slice(0,4).map((move) => {
+                    return (
+                  <h3>{move.move.name}</h3>
+                    )
+                  })}
               </DivMoves>
             </DivInfos>
               <ImgPokemon src={pokemon.sprites?.other.dream_world.front_default} />

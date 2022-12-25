@@ -56,8 +56,6 @@ const Card = (props) => {
     const findPokedex = pokedex.find((pokefind) => {
       return pokefind.name === pokemonRemove.name;
     });
-
-    console.log(findPokedex);
     setPokedex(newPokedex);
     const newPokelist = [...pokelist];
     newPokelist.push(findPokedex);
