@@ -5,6 +5,7 @@ import { GlobalContext } from "../../contexts/GlobalContext";
 import { Container, ContainerCard, Title } from "./styled";
 
 const HomePage = () => {
+
   const context = useContext(GlobalContext);
 
   const { pokelist, setPokelist, pokemon } = context;
@@ -13,7 +14,7 @@ const HomePage = () => {
     const pokeFilter = pokelist.filter((pokemon) => pokemon.name !== pokeName);
     setPokelist(pokeFilter);
   };
-  
+
   return (
     <>
       <Header />

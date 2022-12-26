@@ -20,11 +20,20 @@ import {
 const Card = (props) => {
   const navigate = useNavigate();
   const [pokemon, setPokemon] = useState({});
-
   const location = useLocation();
 
   const context = useContext(GlobalContext);
-  const { pokedex, setPokedex, pokelist, setPokelist } = context;
+
+  const {
+    pokedex,
+    setPokedex,
+    pokelist,
+    setPokelist,
+    isOpen,
+    setIsOpen,
+    flow,
+    setFlow
+  } = context;
 
   const fetchPokeDetails = async () => {
     try {
@@ -45,7 +54,6 @@ const Card = (props) => {
       setPokedex(newPokedex);
     }
     props.filterPokemon(pokemonAdd.name);
-
   };
 
   const removeToPokedex = (pokemonRemove) => {
@@ -92,11 +100,23 @@ const Card = (props) => {
           <p>Detalhes</p>
         </a>
         {location.pathname === "/pokedex" ? (
-          <ButtonPokedex onClick={() => removeToPokedex(pokemon)}>
+          <ButtonPokedex
+            onClick={() => {
+              setFlow(2)
+              setIsOpen(true);
+              removeToPokedex(pokemon);
+            }}
+          >
             Excluir
           </ButtonPokedex>
         ) : (
-          <ButtonPokemon onClick={() => addToPokedex(pokemon)}>
+          <ButtonPokemon
+            onClick={() => {
+              setFlow(1)
+              setIsOpen(true);
+              addToPokedex(pokemon);
+            }}
+          >
             Capturar!
           </ButtonPokemon>
         )}

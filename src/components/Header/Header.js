@@ -3,13 +3,14 @@ import { useLocation, useNavigate, useParams } from "react-router";
 import { goToHomePage, goToPokedexPage } from "../../routes/coordinator";
 import { ButtonDelet, ButtonPokedex, ButtonPokemon, Container } from "./styled";
 import logo from "../../img/pokemon-logo.png";
+import ModalCard from "../Modal/ModalCard";
 const Header = () => {
   // hook pra saber nosso path atual
   const location = useLocation();
 
   // hook pra navegar as paginas
   const navigate = useNavigate();
-  const params = useParams()
+  const params = useParams();
 
   const renderHeader = () => {
     switch (location.pathname) {
@@ -51,7 +52,12 @@ const Header = () => {
         );
     }
   };
-  return <Container>{renderHeader()}</Container>;
+  return (
+    <Container>
+      {renderHeader()}
+      <ModalCard />
+    </Container>
+  );
 };
 
 export default Header;

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import Card from "../../components/Card/Card";
 import Header from "../../components/Header/Header";
+import ModalCard from "../../components/Modal/ModalCard";
 import { GlobalContext } from "../../contexts/GlobalContext";
 import { Container, ContainerCard, Title } from "./styled";
 
