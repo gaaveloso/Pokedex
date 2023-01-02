@@ -4,23 +4,18 @@ import { GlobalContext } from "./contexts/GlobalContext";
 import GlobalStyle from "./GlobalStyle";
 import axios from "axios";
 import { BASE_URL } from "./constants/url";
-import { ChakraProvider, useDisclosure, ModalOverlay } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const App = () => {
   const [pokedex, setPokedex] = useState([]);
   const [pokemon, setPokemon] = useState({});
-
   const [pokelist, setPokelist] = useState([]);
-
-  // const { isOpen, onOpen, onClose } = useDisclosure();
-
   const [isOpen, setIsOpen] = useState(false)
-
   const [flow, setFlow] = useState(1)
 
   const fetchPokelist = async () => {
     try {
-      const response = await axios.get(BASE_URL);
+      const response = await axios.get(`${BASE_URL}?offset=0&limit=100`);
       setPokelist(response.data.results);
     } catch (error) {
       console.log("Erro ao buscar lista de pokemon");

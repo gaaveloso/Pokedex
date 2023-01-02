@@ -70,6 +70,7 @@ const Card = (props) => {
     setPokelist(newPokelist);
   };
 
+  
   useEffect(() => {
     fetchPokeDetails();
   }, []);
