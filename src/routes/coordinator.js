@@ -1,11 +1,15 @@
 export const goToHomePage = (navigate) => {
-    navigate("/")
-}
+  navigate("/");
+};
 
 export const goToDetailsPage = (navigate, pokemon) => {
-    navigate(`/detail/${pokemon}`)
-}
+  navigate(`/detail/${pokemon}`);
+};
 
 export const goToPokedexPage = (navigate) => {
-    navigate("pokedex")
-}
+  navigate("/pokedex");
+};
+
+export const goToHomeTurnPage = (navigate, page) => {
+  navigate(`/page/${page}`);
+};

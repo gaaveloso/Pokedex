@@ -8,14 +8,20 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 const App = () => {
   const [pokedex, setPokedex] = useState([]);
-  const [pokemon, setPokemon] = useState({});
   const [pokelist, setPokelist] = useState([]);
-  const [isOpen, setIsOpen] = useState(false)
-  const [flow, setFlow] = useState(1)
+  const [isOpen, setIsOpen] = useState(false);
+  const [flow, setFlow] = useState(1);
+  const [numbMin, setNumbMin] = useState(0);
+  const [perPage, setPerPage] = useState(20);
+  const [lastPage, setLastPage] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const fetchPokelist = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}?offset=0&limit=100`);
+      const response = await axios.get(
+        `${BASE_URL}?offset=${numbMin}&limit=${perPage}`
+      );
+      setLastPage(Math.ceil(response.data.count / perPage));
       setPokelist(response.data.results);
     } catch (error) {
       console.log("Erro ao buscar lista de pokemon");
@@ -23,9 +29,48 @@ const App = () => {
     }
   };
 
+  const filterPokemon = (pokeName) => {
+    const pokeFilter = pokelist.filter((pokemon) => pokemon.name !== pokeName);
+    setPokelist(pokeFilter);
+  };
+
+  const addToPokedex = (pokemonAdd) => {
+    const filterPokedex = pokedex.find(
+      (pokemonInPokedex) => pokemonInPokedex.name === pokemonAdd.name
+    );
+    if (!filterPokedex) {
+      const newPokedex = [...pokedex, pokemonAdd];
+      const pokedexStringify = JSON.stringify(newPokedex);
+      localStorage.setItem("pokedex", pokedexStringify);
+      setPokedex(newPokedex);
+    }
+    filterPokemon(pokemonAdd.name);
+  };
+
+  const removeToPokedex = (pokemonRemove) => {
+    const newPokedex = pokedex.filter(
+      (pokemonInPokedex) => pokemonInPokedex.name !== pokemonRemove.name
+    );
+
+    const findPokedex = pokedex.find((pokefind) => {
+      return pokefind.name === pokemonRemove.name;
+    });
+
+    setPokedex(newPokedex);
+    const newPokelist = [...pokelist];
+    newPokelist.push(findPokedex);
+    localStorage.removeItem("pokedex");
+    setPokelist(newPokelist);
+  };
+
   useEffect(() => {
+    const getPokemonLocalStorage = localStorage.getItem("pokedex");
+    if (getPokemonLocalStorage) {
+      const pokemonArray = JSON.parse(getPokemonLocalStorage);
+      setPokedex(pokemonArray);
+    }
     fetchPokelist();
-  }, []);
+  }, [pageNumber]);
 
   const context = {
     fetchPokelist,
@@ -33,12 +78,21 @@ const App = () => {
     setPokelist,
     pokedex,
     setPokedex,
-    pokemon,
-    setPokemon,
     isOpen,
     setIsOpen,
     flow,
-    setFlow
+    setFlow,
+    setLastPage,
+    lastPage,
+    setPerPage,
+    perPage,
+    setNumbMin,
+    numbMin,
+    setPageNumber,
+    pageNumber,
+    filterPokemon,
+    addToPokedex,
+    removeToPokedex,
   };
 
   return (

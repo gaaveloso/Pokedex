@@ -4,7 +4,6 @@ import { useParams } from "react-router";
 import Header from "../../components/Header/Header";
 import { getPokemonType } from "../../constants/types";
 import { BASE_URL } from "../../constants/url";
-import { GlobalContext } from "../../contexts/GlobalContext";
 import {
   BaseStats,
   CardDetails,
@@ -13,21 +12,18 @@ import {
   ContainerRight,
   DivInfos,
   DivMoves,
-  DivStats,
   DivType,
   DivTypes,
   ImageLeft,
   ImgPokemon,
 } from "./styled";
-import { Flex, Heading, Progress, Stack, Text } from "@chakra-ui/react";
+import { Flex, Heading, Progress, Text } from "@chakra-ui/react";
+import Footer from "../../components/Footer/Footer";
 
 const DetailsPage = () => {
   const [pokemon, setPokemon] = useState({});
 
-  // const context = useContext(GlobalContext);
   const params = useParams();
-
-  const { pokedex } = useContext(GlobalContext);
 
   const fetchPokeDetails = async () => {
     try {
@@ -43,12 +39,9 @@ const DetailsPage = () => {
     fetchPokeDetails();
   }, []);
 
-  // console.log(pokedex)
-  // {pokedex.find((pokemon) => pokemon.name === params.pokemonName)?'existe':'não existe'}
-
   return (
     <>
-      <Header />
+      <Header pokemon={pokemon} />
       <Container>
         <h1>Detalhes</h1>
         <CardDetails>
@@ -62,28 +55,22 @@ const DetailsPage = () => {
               </div>
             </ImageLeft>
             <BaseStats>
-            <Heading>Base stats</Heading>
-            <Flex
-              flexDirection={"column"}
-              borderTop={"1px grey solid"}
-              marginTop={"16px"}
-            >
-              {pokemon.stats &&
-                pokemon.stats.map((stat) => {
+              <Heading>Base stats</Heading>
+              <Flex
+                flexDirection={"column"}
+                borderTop={"1px grey solid"}
+                marginTop={"16px"}
+              >
+                {pokemon.stats?.map((stat) => {
                   return (
-                    <>
+                    <div key={stat.stat.name}>
                       <Flex
-                        key={stat.stat.name}
                         borderBottom={"1px grey solid"}
                         h={"40px"}
                         alignItems={"center"}
                       >
                         <Flex w="100px">
-                          <Text
-                            w="60px"
-                            textAlign={"end"}
-                            fontSize={"14px"}
-                          >
+                          <Text w="60px" textAlign={"end"} fontSize={"14px"}>
                             {stat.stat.name
                               .replace("special-attack", "Sp. Atk")
                               .replace("special-defense", "Sp. Def")}
@@ -106,32 +93,32 @@ const DetailsPage = () => {
                           value={stat.base_stat}
                         />
                       </Flex>
-                    </>
+                    </div>
                   );
                 })}
-              {pokemon.stats && (
-                <Flex
-                  borderBottom={"1px grey solid"}
-                  h={"40px"}
-                  alignItems={"center"}
-                >
-                  <Text
-                    w={"60px"}
-                    textTransform={"capitalize"}
-                    textAlign={"end"}
-                    fontSize={"14px"}
+                {pokemon.stats && (
+                  <Flex
+                    borderBottom={"1px grey solid"}
+                    h={"40px"}
+                    alignItems={"center"}
                   >
-                    Total
-                  </Text>
-                  <Text margin={"8px"} fontSize={"14px"} fontWeight={"bold"}>
-                    {pokemon.stats.reduce(
-                      (acc, stat) => acc + stat.base_stat,
-                      0
-                    )}
-                  </Text>
-                </Flex>
-              )}
-            </Flex>
+                    <Text
+                      w={"60px"}
+                      textTransform={"capitalize"}
+                      textAlign={"end"}
+                      fontSize={"14px"}
+                    >
+                      Total
+                    </Text>
+                    <Text margin={"8px"} fontSize={"14px"} fontWeight={"bold"}>
+                      {pokemon.stats.reduce(
+                        (acc, stat) => acc + stat.base_stat,
+                        0
+                      )}
+                    </Text>
+                  </Flex>
+                )}
+              </Flex>
             </BaseStats>
           </ContainerLeft>
           <ContainerRight>
@@ -149,8 +136,8 @@ const DetailsPage = () => {
               </DivType>
               <DivMoves>
                 <h2>Moves: </h2>
-                {pokemon.moves?.slice(0, 4).map((move) => {
-                  return <h3>{move.move.name}</h3>;
+                {pokemon.moves?.slice(0, 4).map((move, index) => {
+                  return <h3 key={index}>{move.move.name}</h3>;
                 })}
               </DivMoves>
             </DivInfos>
@@ -160,6 +147,7 @@ const DetailsPage = () => {
           </ContainerRight>
         </CardDetails>
       </Container>
+      <Footer />
     </>
   );
 };

@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { goToHomePage, goToPokedexPage } from "../../routes/coordinator";
-import { ButtonDelet, ButtonPokedex, ButtonPokemon, Container } from "./styled";
+import {
+  ButtonDelet,
+  ButtonPokedex,
+  ButtonPokemon,
+  Container,
+  ButtonAdd,
+} from "./styled";
 import logo from "../../img/pokemon-logo.png";
 import ModalCard from "../Modal/ModalCard";
-const Header = () => {
+import { GlobalContext } from "../../contexts/GlobalContext";
+
+const Header = (props) => {
   // hook pra saber nosso path atual
   const location = useLocation();
 
@@ -12,9 +20,33 @@ const Header = () => {
   const navigate = useNavigate();
   const params = useParams();
 
+  const context = useContext(GlobalContext);
+  
+  const {
+    pageNumber,
+    pokedex,
+    addToPokedex,
+    removeToPokedex,
+  } = context;
+
+  useEffect(() => {
+    renderHeader();
+  }, []);
+
   const renderHeader = () => {
     switch (location.pathname) {
       case "/":
+        return (
+          <Container>
+            <div>
+              <img src={logo} />
+            </div>
+            <ButtonPokedex>
+              <button onClick={() => goToPokedexPage(navigate)}>Pokédex</button>
+            </ButtonPokedex>
+          </Container>
+        );
+      case `/page/${pageNumber}`:
         return (
           <Container>
             <div>
@@ -45,13 +77,20 @@ const Header = () => {
               </button>
             </ButtonPokemon>
             <img src={logo} />
-            <ButtonDelet>
-              <button>Excluir da Pokédex</button>
-            </ButtonDelet>
+            {pokedex.find((pokemon) => pokemon.name === params.pokemonName) ? (
+              <ButtonDelet>
+                <button onClick={() => removeToPokedex(props.pokemon)}>Excluir da Pokédex</button>
+              </ButtonDelet>
+            ) : (
+              <ButtonAdd>
+                <button onClick={() => addToPokedex(props.pokemon)}>Adicionar da Pokédex</button>
+              </ButtonAdd>
+            )}
           </Container>
         );
     }
   };
+
   return (
     <Container>
       {renderHeader()}

@@ -64,3 +64,21 @@ export const ButtonDelet = styled.div`
     cursor: pointer;
   }
 `;
+
+export const ButtonAdd = styled.div`
+  position: absolute;
+  right: 7vw;
+  button {
+    justify-content: center;
+    align-items: center;
+    padding: 4px 10px;
+    width: 11.7vw;
+    height: 5.8vh;
+    background-color: #33a4f5;;
+    border-radius: 8px;
+    font-family: sans-serif;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+`;

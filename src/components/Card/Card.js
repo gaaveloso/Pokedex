@@ -17,7 +17,7 @@ import {
   Type,
 } from "./styled";
 
-const Card = (props) => {
+  const Card = (props) => {
   const navigate = useNavigate();
   const [pokemon, setPokemon] = useState({});
   const location = useLocation();
@@ -25,14 +25,10 @@ const Card = (props) => {
   const context = useContext(GlobalContext);
 
   const {
-    pokedex,
-    setPokedex,
-    pokelist,
-    setPokelist,
-    isOpen,
     setIsOpen,
-    flow,
-    setFlow
+    setFlow,
+    addToPokedex,
+    removeToPokedex,
   } = context;
 
   const fetchPokeDetails = async () => {
@@ -45,32 +41,6 @@ const Card = (props) => {
     }
   };
 
-  const addToPokedex = (pokemonAdd) => {
-    const filterPokedex = pokedex.find(
-      (pokemonInPokedex) => pokemonInPokedex.name === pokemonAdd.name
-    );
-    if (!filterPokedex) {
-      const newPokedex = [...pokedex, pokemonAdd];
-      setPokedex(newPokedex);
-    }
-    props.filterPokemon(pokemonAdd.name);
-  };
-
-  const removeToPokedex = (pokemonRemove) => {
-    const newPokedex = pokedex.filter(
-      (pokemonInPokedex) => pokemonInPokedex.name !== pokemonRemove.name
-    );
-
-    const findPokedex = pokedex.find((pokefind) => {
-      return pokefind.name === pokemonRemove.name;
-    });
-    setPokedex(newPokedex);
-    const newPokelist = [...pokelist];
-    newPokelist.push(findPokedex);
-    setPokelist(newPokelist);
-  };
-
-  
   useEffect(() => {
     fetchPokeDetails();
   }, []);
@@ -92,7 +62,7 @@ const Card = (props) => {
           </Type>
         </div>
         <ImgPokemon
-          src={pokemon.sprites?.other.dream_world.front_default}
+          src={pokemon.sprites?.other["official-artwork"]["front_default"]}
           alt={pokemon.name}
         />
       </Pokemon>
@@ -103,7 +73,7 @@ const Card = (props) => {
         {location.pathname === "/pokedex" ? (
           <ButtonPokedex
             onClick={() => {
-              setFlow(2)
+              setFlow(2);
               setIsOpen(true);
               removeToPokedex(pokemon);
             }}
@@ -113,7 +83,7 @@ const Card = (props) => {
         ) : (
           <ButtonPokemon
             onClick={() => {
-              setFlow(1)
+              setFlow(1);
               setIsOpen(true);
               addToPokedex(pokemon);
             }}
