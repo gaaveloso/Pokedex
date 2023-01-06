@@ -18,4 +18,5 @@ export const Title = styled.div`
     align-items: center;
     color: white;
     height: 10vh;
+    font-size: 2rem;
 `

@@ -21,12 +21,14 @@ const Header = (props) => {
   const params = useParams();
 
   const context = useContext(GlobalContext);
-  
+
   const {
     pageNumber,
     pokedex,
     addToPokedex,
     removeToPokedex,
+    setIsOpen,
+    setFlow,
   } = context;
 
   useEffect(() => {
@@ -79,11 +81,27 @@ const Header = (props) => {
             <img src={logo} />
             {pokedex.find((pokemon) => pokemon.name === params.pokemonName) ? (
               <ButtonDelet>
-                <button onClick={() => removeToPokedex(props.pokemon)}>Excluir da Pokédex</button>
+                <button
+                  onClick={() => {
+                    setFlow(2);
+                    setIsOpen(true);
+                    removeToPokedex(props.pokemon);
+                  }}
+                >
+                  Excluir da Pokédex
+                </button>
               </ButtonDelet>
             ) : (
               <ButtonAdd>
-                <button onClick={() => addToPokedex(props.pokemon)}>Adicionar da Pokédex</button>
+                <button
+                  onClick={() => {
+                    setFlow(1);
+                    setIsOpen(true);
+                    addToPokedex(props.pokemon);
+                  }}
+                >
+                  Adicionar da Pokédex
+                </button>
               </ButtonAdd>
             )}
           </Container>

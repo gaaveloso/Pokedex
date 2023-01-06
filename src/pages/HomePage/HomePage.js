@@ -19,35 +19,50 @@ const HomePage = () => {
     setPageNumber,
     pageNumber,
     pokedex,
+    setPokelist,
+    pokelistFilter,
+    setPokelistFilter
   } = context;
 
   const navigate = useNavigate();
   const params = useParams();
 
+  useEffect(() => {
+    const pokeFilter = pokelist.filter(
+      (pokemonInList) =>
+        !pokedex.find(
+          (pokemonInPokedex) => pokemonInList.name === pokemonInPokedex.name
+        )
+    );
+    setPokelist(pokeFilter)
+    setPokelistFilter(pokeFilter)
+    console.log("AQUI",pokeFilter)
+  }, [])
+  
   const filteredPokemonlist = () => {
     if (pokelist) {
-      return pokelist
-        .filter(
-          (pokemonInList) =>
-            !pokedex.find(
-              (pokemonInPokedex) => pokemonInList.name === pokemonInPokedex.name
-            )
-        )
-        .sort((a, b) => {
-          if (a.url && b.url) {
-            const primeiro = a.url.split("/");
-            const segundo = b.url.split("/");
-            return Number(primeiro[6]) - Number(segundo[6]);
-          } else if (a.url && b.id) {
-            const primeiro = a.url.split("/");
-            return Number(primeiro[6]) - Number(b.id);
-          } else if (a.id && b.url) {
-            const segundo = b.url.split("/");
-            return Number(a.id) - Number(segundo[6]);
-          } else if (a.id && b.id) {
-            return Number(a.id) - Number(b.id);
-          }
-        });
+      // const pokeFilter = pokelist.filter(
+      //   (pokemonInList) =>
+      //     !pokedex.find(
+      //       (pokemonInPokedex) => pokemonInList.name === pokemonInPokedex.name
+      //     )
+      // );
+      // return pokeFilter.
+      pokelist.sort((a, b) => {
+        if (a.url && b.url) {
+          const primeiro = a.url.split("/");
+          const segundo = b.url.split("/");
+          return Number(primeiro[6]) - Number(segundo[6]);
+        } else if (a.url && b.id) {
+          const primeiro = a.url.split("/");
+          return Number(primeiro[6]) - Number(b.id);
+        } else if (a.id && b.url) {
+          const segundo = b.url.split("/");
+          return Number(a.id) - Number(segundo[6]);
+        } else if (a.id && b.id) {
+          return Number(a.id) - Number(b.id);
+        }
+      });
     }
   };
 
@@ -82,16 +97,15 @@ const HomePage = () => {
           <h1>Todos Pokémons</h1>
         </Title>
         <ContainerCard>
-          {filteredPokemonlist()
-            .map((pokemon) => {
-              return (
-                <Card
-                  key={pokemon.name}
-                  pokemonUrl={pokemon.url}
-                  pokemon={pokemon}
-                />
-              );
-            })}
+          {pokelist.map((pokemon) => {
+            return (
+              <Card
+                key={pokemon.name}
+                pokemonUrl={pokemon.url}
+                pokemon={pokemon}
+              />
+            );
+          })}
         </ContainerCard>
         <ButtonGroup
           width={"99vw"}

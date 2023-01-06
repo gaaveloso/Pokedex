@@ -18,7 +18,7 @@ export const CardDetails = styled.div`
   width: 80vw;
   height: 70vh;
   margin: 0 auto;
-  background-color: #729f92;
+  background-color: ${(props) => props.color};
   border-radius: 37.8857px;
   background-image: url(${pokebola});
   background-repeat: no-repeat;

@@ -7,7 +7,7 @@ export const getPokemonColors = (type) => {
     case "dragon":
       return '#0A6CBF';
     case "electric":
-      return '#F4D23B';
+      return '#FFC222';
     case "fairy":
       return '#EC8FE6';
     case "fighting":

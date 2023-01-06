@@ -19,6 +19,7 @@ import {
 } from "./styled";
 import { Flex, Heading, Progress, Text } from "@chakra-ui/react";
 import Footer from "../../components/Footer/Footer";
+import { getPokemonColors } from "../../constants/color";
 
 const DetailsPage = () => {
   const [pokemon, setPokemon] = useState({});
@@ -44,7 +45,7 @@ const DetailsPage = () => {
       <Header pokemon={pokemon} />
       <Container>
         <h1>Detalhes</h1>
-        <CardDetails>
+        <CardDetails color={getPokemonColors(pokemon.types && pokemon.types[0].type.name)}>
           <ContainerLeft>
             <ImageLeft>
               <div>

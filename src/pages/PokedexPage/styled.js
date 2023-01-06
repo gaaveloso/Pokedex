@@ -8,7 +8,7 @@ export const ContainerCard = styled.div`
 `
 
 export const Container = styled.div`
-    height: 100%;
+    height: 100vh;
     background-color: #5E5E5E;
 `
 
@@ -18,4 +18,6 @@ export const Title = styled.div`
     align-items: center;
     color: white;
     height: 10vh;
+    font-size: 2rem;
+
 `

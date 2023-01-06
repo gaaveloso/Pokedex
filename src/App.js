@@ -15,6 +15,7 @@ const App = () => {
   const [perPage, setPerPage] = useState(20);
   const [lastPage, setLastPage] = useState(1);
   const [pageNumber, setPageNumber] = useState(1);
+  const [pokelistFilter, setPokelistFilter] = useState([]);
 
   const fetchPokelist = async () => {
     try {
@@ -69,9 +70,11 @@ const App = () => {
       const pokemonArray = JSON.parse(getPokemonLocalStorage);
       setPokedex(pokemonArray);
     }
-    fetchPokelist();
+    if (pokelist.length === 0 && pokelistFilter.length === 0 ) {
+      fetchPokelist();
+    }
   }, [pageNumber]);
-
+  console.log("CONSOLE DO APP", pokelistFilter)
   const context = {
     fetchPokelist,
     pokelist,
@@ -93,6 +96,8 @@ const App = () => {
     filterPokemon,
     addToPokedex,
     removeToPokedex,
+    pokelistFilter,
+    setPokelistFilter,
   };
 
   return (
