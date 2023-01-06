@@ -45,7 +45,9 @@ const App = () => {
       localStorage.setItem("pokedex", pokedexStringify);
       setPokedex(newPokedex);
     }
-    filterPokemon(pokemonAdd.name);
+    
+    const pokeFilter = pokelist.filter((pokemon) => pokemon.name !== pokemonAdd.name);
+    setPokelist(pokeFilter)
   };
 
   const removeToPokedex = (pokemonRemove) => {
@@ -53,14 +55,12 @@ const App = () => {
       (pokemonInPokedex) => pokemonInPokedex.name !== pokemonRemove.name
     );
 
-    const findPokedex = pokedex.find((pokefind) => {
-      return pokefind.name === pokemonRemove.name;
-    });
-
     setPokedex(newPokedex);
     const newPokelist = [...pokelist];
-    newPokelist.push(findPokedex);
-    localStorage.removeItem("pokedex");
+
+    const pokedexStringify = JSON.stringify(newPokedex)
+    localStorage.setItem("pokedex", pokedexStringify)
+
     setPokelist(newPokelist);
   };
 
@@ -70,11 +70,9 @@ const App = () => {
       const pokemonArray = JSON.parse(getPokemonLocalStorage);
       setPokedex(pokemonArray);
     }
-    if (pokelist.length === 0 && pokelistFilter.length === 0 ) {
       fetchPokelist();
-    }
   }, [pageNumber]);
-  console.log("CONSOLE DO APP", pokelistFilter)
+
   const context = {
     fetchPokelist,
     pokelist,

@@ -21,7 +21,7 @@ const HomePage = () => {
     pokedex,
     setPokelist,
     pokelistFilter,
-    setPokelistFilter
+    setPokelistFilter,
   } = context;
 
   const navigate = useNavigate();
@@ -34,21 +34,19 @@ const HomePage = () => {
           (pokemonInPokedex) => pokemonInList.name === pokemonInPokedex.name
         )
     );
-    setPokelist(pokeFilter)
-    setPokelistFilter(pokeFilter)
-    console.log("AQUI",pokeFilter)
-  }, [])
-  
+    setPokelist(pokeFilter);
+    setPokelistFilter(pokeFilter);
+  }, []);
+
   const filteredPokemonlist = () => {
-    if (pokelist) {
-      // const pokeFilter = pokelist.filter(
-      //   (pokemonInList) =>
-      //     !pokedex.find(
-      //       (pokemonInPokedex) => pokemonInList.name === pokemonInPokedex.name
-      //     )
-      // );
-      // return pokeFilter.
-      pokelist.sort((a, b) => {
+    const poke = pokelist
+      .filter(
+        (pokemonInList) =>
+          !pokedex.find(
+            (pokemonInPokedex) => pokemonInList.name === pokemonInPokedex.name
+          )
+      )
+      .sort((a, b) => {
         if (a.url && b.url) {
           const primeiro = a.url.split("/");
           const segundo = b.url.split("/");
@@ -63,7 +61,7 @@ const HomePage = () => {
           return Number(a.id) - Number(b.id);
         }
       });
-    }
+    return poke;
   };
 
   const handlePageTurn = (value) => {
@@ -97,7 +95,7 @@ const HomePage = () => {
           <h1>Todos Pokémons</h1>
         </Title>
         <ContainerCard>
-          {pokelist.map((pokemon) => {
+          {pokelist && filteredPokemonlist().map((pokemon) => {
             return (
               <Card
                 key={pokemon.name}
