@@ -1,4 +1,4 @@
-# Galaxy Store
+# Pokedex
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/gaaveloso/Pokedex/blob/master/LICENSE) 
 
 # Sobre o projeto
